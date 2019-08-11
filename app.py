@@ -5,16 +5,19 @@ from pymongo import MongoClient
 client = MongoClient('127.0.0.1', 27017)
 db = client['adtech']
 
-
-## HTML을 주는 부분
-#@app.route('/')
-#def home():
-#    return 'This is Home!'
+import datetime
 
 
-#@app.route('/mypage')
-#def mypage():
-#    return render_template('index.html')
+
+# HTML을 주는 부분
+@app.route('/')
+def home():
+    return 'This is Home!'
+
+
+@app.route('/mypage')
+def mypage():
+    return render_template('index.html')
 
 
 ## API 역할을 하는 부분
@@ -35,8 +38,12 @@ db = client['adtech']
 
 @app.route('/post', methods=['GET'])
 def view():
-   posts = db.articles.find({},{'_id':0})
-   return jsonify({'result':'success', 'articles':list(posts)})
+    posts = list(db.articles.find({},{'_id':0}))
+    for post in posts:
+        post['date'] = post['date'].strftime('%Y-%m-%d')
+    return jsonify(posts)
+
+
 
 if __name__ == '__main__':
-   app.run('127.0.0.1',port=5000,debug=True)
+    app.run('127.0.0.1',port=5000,debug=True)
