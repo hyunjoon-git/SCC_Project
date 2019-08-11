@@ -28,7 +28,7 @@ db = client['adtech']
 
     #article = {'date': date_receive, 'link': link_receive, 'title': title_receive}  # 받은 걸 딕셔너리로 만들고,
 
-    #rticles.append(article)  # 넣는다
+    #articles.append(article)  # 넣는다
 
     #return jsonify({'result': 'success'})
 
